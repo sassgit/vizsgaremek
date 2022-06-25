@@ -11,6 +11,7 @@ module.exports = model => ({
     else
       throw new Error('Create | Model is not valid!');
   },
+  Search: (expression) => model.find(expression).populate(),
   findAll: () => model.find({}).populate(),
   findOne: id => model.findById(id),
   updateOne: async (id, data) => {

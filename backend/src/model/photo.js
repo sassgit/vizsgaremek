@@ -3,7 +3,8 @@ const mongoose = require('mongoose');
 const PhotoSchema = mongoose.Schema({
   storedFileName: {
     type: String,
-    required: true
+    required: true,
+    unique: true
   },
   alt: {
     type: String,

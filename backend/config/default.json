@@ -3,7 +3,7 @@
       "host": "mongodb://localhost:27017/vr1"
   },
   "jwt": {
-    "disabled": true,
+    "disabled": false,
     "expiresIn": "1h",
     "secret":  "AdEWRser#$234SD@#423sdr237489"
   }

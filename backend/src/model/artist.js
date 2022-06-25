@@ -5,7 +5,7 @@ const ArtistSchema = mongoose.Schema({
     type: String,
     required: true
   },
-  stageName: String,
+  artistName: String,
   otherInfo: String
 })
 

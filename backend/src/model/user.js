@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const UserSchema = mongoose.Schema({
   email: {
     type: String,
-    uniquie: true,
+    unique: true,
     required: true
   },
   role: String

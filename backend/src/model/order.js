@@ -24,10 +24,8 @@ const OrderSchema = mongoose.Schema({
     type: String,
     required: true
   },
-  bill: {
-    type: mongoose.Types.ObjectId,
-    ref: 'Bill'
-  },
+  bill: String,
+  billStatus: String,
   price: {
     type: Number,
     required: true
