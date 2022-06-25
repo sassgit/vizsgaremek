@@ -6,8 +6,9 @@ const UserSchema = mongoose.Schema({
     uniquie: true,
     required: true
   },
-  password: String,
   role: String
 })
+
+UserSchema.plugin(require('mongoose-bcrypt'));
 
 module.exports = mongoose.model('User', UserSchema);

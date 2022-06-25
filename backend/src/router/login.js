@@ -4,6 +4,7 @@ const User = require('../../model/user');
 const jwt = require('jsonwebtoken');
 
 const secret = config.get('jwt').secret;
+const expiresIn = config.get('jwt').expiresIn;
 
 const router = express.Router();
 
@@ -18,11 +19,9 @@ router.post('/', async (req, res, next) => {
         const accessToken = jwt.sign({
             _id: user._id,
             email: user.email,
-            role: 1,
-        }, 'egynagyontitkosszöveg', {
-            expiresIn: '1h',
-        });
-
+            role: user.role,
+        }, secret, { expiresIn }
+        );
         res.json({ 
             success: true, 
             accessToken, 

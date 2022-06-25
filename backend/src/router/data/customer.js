@@ -1,2 +1,2 @@
-const Customer = require('../model/customer');
-module.exports = require('./base')(Customer, require('../auth/defaultacces'));
+const Customer = require('../../model/customer');
+module.exports = require('../base')(Customer, require('../../auth/defaultacces'));
