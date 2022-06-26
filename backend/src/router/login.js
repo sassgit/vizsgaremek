@@ -24,7 +24,6 @@ router.post('/', async (req, res) => {
           }, secret, { expiresIn }
         );
         res.json({ 
-            success: true, 
             accessToken, 
             user: {...user._doc, password: ''},
           });

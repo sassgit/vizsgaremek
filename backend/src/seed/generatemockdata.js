@@ -105,10 +105,7 @@ customerIndices.forEach( customerIndex => {
   }
   const order = {
     customer: customerIndex,
-    paintings: cart.map(p => ({
-      painting: data.paintings.indexOf(p),
-      price: p.price,
-    })),
+    paintings: cart.map(p => data.paintings.indexOf(p)),
     remark: '',
     status: ordrerStatusArray[statusIndex],
     bill,

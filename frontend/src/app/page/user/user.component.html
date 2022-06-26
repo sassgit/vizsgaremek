@@ -1,0 +1,32 @@
+<h2>Az adminisztrációs rendszer felhasználói</h2>
+<ngx-data-table
+  *ngIf="list$ |async as list"
+  [list]="list"
+  [columns]="[
+    {
+      title: 'e-mail',
+      key: 'email'
+    },
+    {
+      title: 'Jogosultság',
+      key: 'role'
+    },
+    {
+      title: 'Műveletek',
+      key: '',
+      divButton: [
+      {
+        id: 'edit',
+        class: 'btn btn-primary',
+        text: 'Szerkesztés'
+      },
+      {
+        id: 'delete',
+        class: 'btn btn-danger',
+        text: 'Törlés'
+      }
+      ]
+    }
+  ]"
+
+></ngx-data-table>

@@ -1,0 +1,36 @@
+<h2>A Festményekről készült fotók</h2>
+<ngx-data-table
+  *ngIf="list$ |async as list"
+  [list]="list"
+  [columns]="[
+    {
+      title: 'Tárolt fájlnév',
+      key: 'storedFileName'
+    },
+    {
+      title: 'Megjelenített szöveg (alt)',
+      key: 'alt'
+    },
+    {
+      title: 'Fájl méret (byte)',
+      key: 'fileSize'
+    },
+    {
+      title: 'Műveletek',
+      key: '',
+      divButton: [
+      {
+        id: 'edit',
+        class: 'btn btn-primary',
+        text: 'Szerkesztés'
+      },
+      {
+        id: 'delete',
+        class: 'btn btn-danger',
+        text: 'Törlés'
+      }
+      ]
+    }
+  ]"
+
+></ngx-data-table>

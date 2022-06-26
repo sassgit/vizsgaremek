@@ -13,8 +13,6 @@ const PaintingSchema = mongoose.Schema({
     type: String,
     required: true
   },
-  width: Number,
-  height: Number,
   otherInfo: String,
   photos: {
     type: [{ type: mongoose.Types.ObjectId, ref: 'Photo'}]
@@ -33,4 +31,9 @@ const PaintingSchema = mongoose.Schema({
   }
 })
 
-module.exports = mongoose.model('Painting', PaintingSchema);
+const model = mongoose.model('Painting', PaintingSchema);
+
+model.populateOne = ['artist', 'photos'];
+model.populateAll = 'artist';
+
+module.exports = model;

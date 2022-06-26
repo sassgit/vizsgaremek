@@ -1,0 +1,59 @@
+<h2>Festmények</h2>
+<ngx-data-table
+  *ngIf="list$ |async as list"
+  [list]="list"
+  [columns]="[
+    {
+      title: 'Művész',
+      key: 'artist',
+      interpreter: artistInterpreterMode
+    },
+    {
+      title: 'Cím',
+      key: 'title'
+    },
+    {
+      title: 'Típus',
+      key: 'type'
+    },
+    {
+      title: 'Egyéb',
+      key: 'otherInfo'
+    },
+    {
+      title: 'fotók',
+      key: 'photos',
+      interpreter: photoInterpreterMode
+    },
+    {
+      title: 'Készült (db)',
+      key: 'count'
+    },
+    {
+      title: 'Raktáron (db)',
+      key: 'count'
+    },
+    {
+      title: 'Ár',
+      key: 'price'
+    },
+    {
+      title: 'Műveletek',
+      key: '',
+      divButton: [
+      {
+        id: 'edit',
+        class: 'btn btn-primary',
+        text: 'Szerkesztés'
+      },
+      {
+        id: 'delete',
+        class: 'btn btn-danger',
+        text: 'Törlés'
+      }
+      ]
+    }
+  ]"
+  [interpreter]="interpreterBound"
+></ngx-data-table>
+

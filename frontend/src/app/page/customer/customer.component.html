@@ -1,0 +1,48 @@
+<h2>Vevők</h2>
+<ngx-data-table
+  *ngIf="list$ |async as list"
+  [list]="list"
+  [columns]="[
+    {
+      title: 'Név',
+      key: 'fullName'
+    },
+    {
+      title: 'Irányítószám',
+      key: 'zip'
+    },
+    {
+      title: 'Város',
+      key: 'city'
+    },
+    {
+      title: 'Utca, hsz.',
+      key: 'streetAddress'
+    },
+    {
+      title: 'Ország',
+      key: 'country'
+    },
+    {
+      title: 'e-mail',
+      key: 'email'
+    },
+    {
+      title: 'Műveletek',
+      key: '',
+      divButton: [
+      {
+        id: 'edit',
+        class: 'btn btn-primary',
+        text: 'Szerkesztés'
+      },
+      {
+        id: 'delete',
+        class: 'btn btn-danger',
+        text: 'Törlés'
+      }
+      ]
+    }
+  ]"
+
+></ngx-data-table>

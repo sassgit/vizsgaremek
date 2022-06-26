@@ -21,8 +21,6 @@ Az alábbi adatokat lehet kezelni általa:
   - művész ?: id
   - cím : string
   - típus (pl olaj, akvarell, rézkarc) : string
-  - szélesség ?: number
-  - magasság ?: number
   - egyéb adatok a műről ?: string
   - fotók ?: id-k tömbje
   - összesen készült darabszám (általában 1) : number
@@ -38,21 +36,20 @@ Az alábbi adatokat lehet kezelni általa:
   - egyéb adatok ?: string
 - vevők
   - név : string
-  - cím : string
+  - irányítószám ?: string
+  - város ?: string
+  - utca/hsz ?: string
+  - ország ?: string
   - e-mail: ?: string
   - jelszó kódolva ?: string
 - megrendelések
   - vevő : id
-  - termékek : object tömb
-    - festmény id-je : id
-    - kialkudott ár : number
+  - termékek : tömb festmény id-je
   - megjegyzés ?: string
   - állapot (megrendelve - feldolgozva - leszállítva) : string
-  - számla : id
+  - számla azonosító ?: string
+  - számla állapot ?: string
   - végösszeg esetleges kedvezménnyel (ezért nem föltétlen termékek árainak összege) : number
-- számlák
-  - megrendelés : id
-  - állapot : nem fizetve / fizetve
 - users (admin felület felhasználói)
   - e-mail : string
   - kódolt jelszó : string
@@ -92,8 +89,8 @@ Az alábbi adatokat lehet kezelni általa:
     * __elfogadási kritérium:__ _A fotók adatlistából megnyíló form-on a fájlmérete nem változtatható._
 1. A fotók adatlistához nem "új létrehozása", hanem feltöltés gomb van, amivel képfájlokat lehet feltölteni a szerverre.
     * __elfogadási kritérium:__ _A kiválasztott fájlokat a szerverre feltölti, a szerveren ha már van ugyanolyan nevű fájl, akkor a feltöltött fájl nevéhez egy hozzáad egy `_x`, ahol `x` egy szám úgy, hogy olyan nevű fájl feltöltve ne szerepeljen_
-1. A fotók adatai között a tárolt fájlnév módosítása esetén megpróbálja olyan fájnévre módosítani a tárolt fájlt amit megadunk.
-    * __elfogadási kritérium:__ _Aza adatbázis módosításával együtt a fájl nevét úgy módosítja, hogy ha már van ugyanolyan nevű fájl, akkor a úgy módosítha a nevet, hogy hozzátesz egy `_x`, ahol `x` egy szám_
+1. A fotók adatai között a tárolt fájlnév nem módosítható
+    * __elfogadási kritérium:__ _Mind a frontend, mint a backend részen tiltott a módosítása_
 1. A kódolt jelszavak kódjai nem láthatók, helyette * vagy hasonló jel(ek) szerepelnek, megváltoztatásához külön szabályok érvényesek.
     * __elfogadási kritérium:__ _Az adminisztrátor jogosultságú felhasználó tetszőlegesen változtathat meg jelszavakat. A többi felhasználó (`user`) csak a saját jelszavát változtathatja meg a korábbi beírásával_
 

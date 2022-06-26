@@ -5,7 +5,18 @@ const cors = require('cors');
 const logger = require('./logger');
 
 const jwtConfig = config.get('jwt')
-const jwtAuth = jwtConfig.disabled ?
+const noAuth = process.argv[2] === '--noAuth';
+
+if (noAuth) {
+  console.log('\x1b[41m\x1b[33mWARNING!!!\x1b[0m')
+  console.log('\x1b[33m**********\x1b[0m')
+  console.log('\x1b[31mAuthentication disabled!\x1b[0m')
+  console.log('\x1b[33mAll prermission is granted to everyone!\x1b[0m')
+  console.log('\x1b[31m**********\x1b[0m')
+  console.log('\x1b[43m\x1b[31mWARNING!!!\x1b[0m')
+}
+
+const jwtAuth = noAuth ?
   (req, res, next) => {
     req.user = { email: '@root', password: '', role: 'root' };
     return next();
@@ -18,7 +29,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use(express.static('www/public'));
-app.use('/images', require('./router/data/images')('www/images'));
+app.use('/images', require('./router/images')('www/images'));
 
 app.use('/login', require('./router/login'));
 

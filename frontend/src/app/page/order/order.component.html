@@ -1,0 +1,54 @@
+<h2>Rendelések</h2>
+<ngx-data-table
+  *ngIf="list$ |async as list"
+  [list]="list"
+  [columns]="[
+    {
+      title: 'Vevő',
+      key: 'customer',
+      interpreter: customerInterpreterMode
+    },
+    {
+      title: 'db',
+      key: 'paintings',
+      interpreter: paintingInterpreterMode
+    },
+    {
+      title: 'Megjegyzés',
+      key: 'remark'
+    },
+    {
+      title: 'Állapot',
+      key: 'status'
+    },
+    {
+      title: 'Számla',
+      key: 'bill'
+    },
+    {
+      title: 'Számla állapt',
+      key: 'billStatus'
+    },
+    {
+      title: 'Végösszeg',
+      key: 'price'
+    },
+    {
+      title: 'Műveletek',
+      key: '',
+      divButton: [
+      {
+        id: 'edit',
+        class: 'btn btn-primary',
+        text: 'Szerkesztés'
+      },
+      {
+        id: 'delete',
+        class: 'btn btn-danger',
+        text: 'Törlés'
+      }
+      ]
+    }
+  ]"
+  [interpreter]="interpreterBound"
+></ngx-data-table>

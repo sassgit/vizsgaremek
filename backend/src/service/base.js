@@ -1,6 +1,10 @@
-const {
-  default: mongoose
-} = require("mongoose");
+
+const populating = (query, populateObj) => {
+  if (!populateObj || typeof populateObj === 'string')
+    return query.populate(populateObj);
+  else 
+    return populateObj.reduce((q, e) => q.populate(e), query);
+};
 
 module.exports = model => ({
   create: (data) => {
@@ -11,9 +15,9 @@ module.exports = model => ({
     else
       throw new Error('Create | Model is not valid!');
   },
-  Search: (expression) => model.find(expression).populate(),
-  findAll: () => model.find({}).populate(),
-  findOne: id => model.findById(id),
+  search: (expression) => model.find(expression).populate(),
+  findAll: () => populating(model.find({}), model.populateAll),
+  findOne: id => populating(model.findById(id), model.populateOne),
   updateOne: async (id, data) => {
     const entity = new model(data);
     const error = entity.validateSync();

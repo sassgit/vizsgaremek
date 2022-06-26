@@ -1,0 +1,36 @@
+<h2>Művészek</h2>
+<ngx-data-table
+  *ngIf="list$ |async as list"
+  [list]="list"
+  [columns]="[
+    {
+      title: 'Név',
+      key: 'fullName'
+    },
+    {
+      title: 'Művésznév',
+      key: 'artistName'
+    },
+    {
+      title: 'Egyéb információk',
+      key: 'otherInfo'
+    },
+    {
+      title: 'Műveletek',
+      key: '',
+      divButton: [
+      {
+        id: 'edit',
+        class: 'btn btn-primary',
+        text: 'Szerkesztés'
+      },
+      {
+        id: 'delete',
+        class: 'btn btn-danger',
+        text: 'Törlés'
+      }
+      ]
+    }
+  ]"
+  (onButtonClick)="tableButtonClick($event)"
+></ngx-data-table>

@@ -7,16 +7,11 @@ const OrderSchema = mongoose.Schema({
     ref: 'Customer'
   },
   paintings: {
-    type: [{
-      painting: { 
+    type: [
+      { 
         type: mongoose.Types.ObjectId,
         ref: 'Painting'
-      },
-      price: {
-        type: Number,
-        required: true
-      }
-    }],
+      }],
     required: true
   },
   remark: String,
@@ -32,4 +27,9 @@ const OrderSchema = mongoose.Schema({
   }
 })
 
-module.exports = mongoose.model('Order', OrderSchema);
+const model = mongoose.model('Order', OrderSchema);
+
+model.populateOne = ['customer', 'paintings'];
+model.populateAll = 'customer';
+
+module.exports = model;
