@@ -44,5 +44,34 @@
       ]
     }
   ]"
-
+  (onButtonClick)="tableButtonClick($event)"
 ></ngx-data-table>
+
+<app-modal *ngIf="editObj$ | async as customer" [(visible)]="editVisible" (onOkButtonClick)="editOkButton(customer)" >
+  <form >
+    <div class="form-group">
+      <label for="fullName" >Név</label>
+      <input type="text" [(ngModel)]="customer.fullName" name="fullName" id="fullName" class="form-control" >
+    </div>
+    <div class="form-group">
+      <label for="zip" >Irányítószám</label>
+      <input type="text" [(ngModel)]="customer.zip" name="zip" id="customerName" class="form-control" >
+    </div>
+    <div class="form-group">
+      <label for="city" >Város</label>
+      <input type="text" [(ngModel)]="customer.city" name="city" id="customerName" class="form-control" >
+    </div>
+    <div class="form-group">
+      <label for="streetAddress" >Utca, hsz.</label>
+      <input type="text" [(ngModel)]="customer.streetAddress" name="streetAddress" id="customerName" class="form-control" >
+    </div>
+    <div class="form-group">
+      <label for="country" >Ország</label>
+      <input type="text" [(ngModel)]="customer.country" name="country" id="country" class="form-control" >
+    </div>
+    <div class="form-group">
+      <label for="email" >Email</label>
+      <input type="text" [(ngModel)]="customer.country" name="email" id="email" class="form-control" >
+    </div>
+  </form>
+</app-modal>

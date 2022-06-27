@@ -19,7 +19,7 @@ export class BaseService<T extends BaseModel> {
   ) { }
 
   create(entity: T): Observable<T> {
-    entity.prepareToSend();
+    this.prepareToSend(entity);
     return this.http.post<T>(this.apiUrl, entity);
   }
 
@@ -34,12 +34,16 @@ export class BaseService<T extends BaseModel> {
 
   update(entity: T): Observable<T> {
     const id = entity._id;
-    entity.prepareToSend();
+    this.prepareToSend(entity);
     return this.http.patch<T>(`${this.apiUrl}/${id}`, entity);
   }
 
   delete(id: string): Observable<T> {
     return this.http.delete<T>(`${this.apiUrl}/${id}`);
   }
+
+  protected prepareToSend(entity: T): void {
+    delete entity._id;
+  };
 
 }

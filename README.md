@@ -80,7 +80,7 @@ Az alábbi adatokat lehet kezelni általa:
 1. Adatlistában Szerkesztés gomb-ra kattintva módostíthatók az adatok
     * __elfogadási kritérium:__ _Egy form-on mezőkben módosíthatók az adatok. Az id-k nem szerkeszthetők, itt is az adott objektum jellemző adata (neve) jelenik meg, és arra kattintva ki lehet választani egy másikat egy megjelenő listából_
 1. Adatlistában Törlés gomb-ra kattintva törölhetők az adatok
-    * __elfogadási kritérium:__ _Csak akkor törölhető bármi, ha nincs függősége más adatban, ellenkező esetben figyelmeztető üzenet jelenik meg_
+    * __elfogadási kritérium:__ _Törlés előtt figyelmeztető üzenet jelenik meg_
 1. Az adatlisták alján lapozó van a további adatok megjelenítéséhez.
     * __elfogadási kritérium:__ _működő lapozó első, utolsó, előző, következő link-ek, és számokkal jelölt oldalkiválasztók, sok adat esteén sok oldal megfelelő kezelése (csak az aktuálishoz közeli oldalak-hoz linkek)_
 1. Az adatlisták alján "Új létrehozása" gomb van.

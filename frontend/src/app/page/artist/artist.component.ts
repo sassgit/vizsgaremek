@@ -1,3 +1,4 @@
+import { Observable, of } from 'rxjs';
 import { Router } from '@angular/router';
 import { ArtistService } from './../../service/artist.service';
 import { Component, OnInit } from '@angular/core';
@@ -12,6 +13,10 @@ export class ArtistComponent implements OnInit {
 
   list$ = this.artistService.getAll();
 
+  editVisible: boolean = false;
+
+  editObj$: Observable<Artist> = of(new Artist());
+
   constructor(
     private artistService: ArtistService,
     private router: Router,
@@ -21,7 +26,21 @@ export class ArtistComponent implements OnInit {
   }
 
   tableButtonClick($event:[string, Artist]){
-    console.log($event);
+    if ($event[0] === 'edit') {
+      this.editObj$ = this.artistService.getOne($event[1]._id as string);
+      this.editVisible = true;
+    } else if ($event[0] === 'delete') {
+      this.artistService.delete($event[1]._id as string)
+    }
+  }
+
+  editOkButton(entity: Artist): void {
+    console.log(entity);
+    this.artistService.update(entity).subscribe({
+      next: () => {
+        this.list$ = this.artistService.getAll();
+      }
+    })
   }
 
 }

@@ -27,7 +27,6 @@ export class OrderComponent implements OnInit {
   }
 
   interpreterCallBack(mode: string, data: any) {
-    console.log(mode, data);
     if (mode === this.customerInterpreterMode) {
       return data?.fullName;
     } else if (mode === this.paintingInterpreterMode) {

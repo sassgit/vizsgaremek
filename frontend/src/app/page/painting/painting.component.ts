@@ -26,7 +26,6 @@ export class PaintingComponent implements OnInit {
   }
 
   interpreterCallBack(mode: string, data: any) {
-    console.log(mode, data);
     if (mode === this.artistInterpreterMode) {
       return data?.fullName;
     } else if (mode === this.photoInterpreterMode) {

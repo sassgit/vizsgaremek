@@ -11,12 +11,4 @@ export class Painting extends BaseModel {
   count: number = 1;
   stock: number = 0;
   price?: number = 0;
-  override prepareToSend(): void {
-    super.prepareToSend();
-    if (this.photos)
-      this.photos.map(e => e instanceof Photo ? e._id : e);
-    if(this.artist && this.artist instanceof Artist)
-      this.artist = this.artist._id as string;
-
-  }
 }
