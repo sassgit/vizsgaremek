@@ -20,6 +20,7 @@ import { PaintingComponent } from './page/painting/painting.component';
 import { PhotoComponent } from './page/photo/photo.component';
 import { UserComponent } from './page/user/user.component';
 import { ModalComponent } from './common/modal/modal.component';
+import { ForbiddenComponent } from './page/forbidden/forbidden.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { ModalComponent } from './common/modal/modal.component';
     PhotoComponent,
     UserComponent,
     ModalComponent,
+    ForbiddenComponent,
   ],
   imports: [
     BrowserModule,

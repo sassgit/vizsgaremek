@@ -18,7 +18,7 @@ export class ConfigService {
     {link: '/customer', title: 'Vevők', icon: 'fa fa-address-card'},
     {link: '/order', title: 'Rendelések', icon: 'fa fa-credit-card'},
     {link: '/painting', title: 'Festmények', icon: 'fa fa-image'},
-    {link: '/photo', title: 'Fotók', icon: 'fa fa-camera'},
+    {link: '/photo', title: 'Festményfotók', icon: 'fa fa-camera'},
     {delimiter: true},
     {link: '/user', title: 'Felhaszálók', icon: 'fa fa-user'},
   ];

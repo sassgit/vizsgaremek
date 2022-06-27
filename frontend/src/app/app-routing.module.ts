@@ -1,3 +1,5 @@
+import { ForbiddenComponent } from './page/forbidden/forbidden.component';
+import { AuthGuardService } from './service/auth-guard.service';
 import { ArtistComponent } from './page/artist/artist.component';
 import { CustomerComponent } from './page/customer/customer.component';
 import { LoginComponent } from './page/login/login.component';
@@ -12,15 +14,26 @@ import { RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    component: HomeComponent
+    component: HomeComponent,
+    canActivate: [AuthGuardService],
   },
   {
     path: 'artist',
-    component: ArtistComponent
+    component: ArtistComponent,
+    canActivate: [AuthGuardService],
+    data: {
+      expectedRoles: ['root', 'edit', 'read'],
+      forbiddenInfo: 'Művészek',
+    },
   },
   {
     path: 'customer',
-    component: CustomerComponent
+    component: CustomerComponent,
+    canActivate: [AuthGuardService],
+    data: {
+      expectedRoles: ['root', 'edit', 'read'],
+      forbiddenInfo: 'Vevők',
+    },
   },
   {
     path: 'login',
@@ -28,19 +41,49 @@ const routes: Routes = [
   },
   {
     path: 'order',
-    component: OrderComponent
+    component: OrderComponent,
+    canActivate: [AuthGuardService],
+    data: {
+      expectedRoles: ['root', 'edit', 'read'],
+      forbiddenInfo: 'Rendelések',
+    },
   },
   {
     path: 'painting',
-    component: PaintingComponent
+    component: PaintingComponent,
+    canActivate: [AuthGuardService],
+    data: {
+      expectedRoles: ['root', 'edit', 'read'],
+      forbiddenInfo: 'Festmények',
+    },
   },
   {
     path: 'photo',
-    component: PhotoComponent
+    component: PhotoComponent,
+    canActivate: [AuthGuardService],
+    data: {
+      expectedRoles: ['root', 'edit', 'read'],
+      forbiddenInfo: 'Festményfotók',
+    },
   },
   {
     path: 'user',
-    component: UserComponent
+    component: UserComponent,
+    canActivate: [AuthGuardService],
+    data: {
+      expectedRoles: ['root'],
+      forbiddenInfo: 'Felhasználók',
+    },
+  },
+  {
+    path: 'forbidden',
+    component: ForbiddenComponent,
+    canActivate: [AuthGuardService],
+  },
+  {
+    path: 'forbidden/:id',
+    component: ForbiddenComponent,
+    canActivate: [AuthGuardService],
   },
 ];
 

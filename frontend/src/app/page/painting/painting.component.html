@@ -1,8 +1,5 @@
 <h2>Festmények</h2>
-<ngx-data-table
-  *ngIf="list$ |async as list"
-  [list]="list"
-  [columns]="[
+<ngx-data-table *ngIf="list$ |async as list" [list]="list" [columns]="[
     {
       title: 'Művész',
       key: 'artist',
@@ -53,7 +50,83 @@
       }
       ]
     }
-  ]"
-  [interpreter]="interpreterBound"
-></ngx-data-table>
+  ]" [interpreter]="interpreterBound" (onButtonClick)="tableButtonClick($event)"></ngx-data-table>
 
+<app-modal *ngIf="editObj$ | async as painting" [(visible)]="editVisible" (onOkButtonClick)="editOkButton(painting)">
+  <form>
+    <div class="form-group">
+      <div class="d-flex justify-content-start mt-2">
+        <label>Művész</label>
+      </div>
+      <div class="d-flex justify-content-start">
+        <input disabled type="text" [value]="getArtistName(painting)" name="artist" id="artist" class="form-control">
+        <button class="btn btn-primary" (click)="changeArtist(painting)">Kiválasztás</button>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="d-flex justify-content-start mt-2">
+        <label for="title">Cím</label>
+      </div>
+      <input type="text" [(ngModel)]="painting.title" name="title" id="title" class="form-control">
+    </div>
+    <div class="form-group">
+      <div class="d-flex justify-content-start mt-2">
+        <label for="type">Cím</label>
+      </div>
+      <input type="text" [(ngModel)]="painting.type" name="type" id="type" class="form-control">
+    </div>
+    <div class="form-group">
+      <div class="d-flex justify-content-start mt-2">
+        <label for="otherInfo">Cím</label>
+      </div>
+      <input type="text" [(ngModel)]="painting.otherInfo" name="otherInfo" id="otherInfo" class="form-control">
+    </div>
+    <div class="form-group">
+      <div class="d-flex justify-content-start mt-2">
+        <label>Fotók</label>
+      </div>
+      <div class="table-responsive">
+        <table class="table table-striped table-sm">
+          <thead>
+            <tr>
+              <th>Fájlnév</th>
+              <th>Megjelenített szöveg (alt)</th>
+              <th>Méret</th>
+              <th>
+                <button class="btn btn-primary w-80" (click)="selectPhoto(painting)">Új fotó</button>
+              </th>
+            </tr>
+          </thead>
+          <tr *ngFor="let item of painting.photos">
+            <td>{{$any(item)?.storedFilename}}</td>
+            <td>{{$any(item)?.alt}}</td>
+            <td>{{$any(item)?.fileSize}}</td>
+            <td>
+              <div>
+                <button class="btn btn-danger w-80" (click)="deletePhoto(painting, item)">Törlés</button>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="d-flex justify-content-start mt-2">
+        <label for="count">Cím</label>
+      </div>
+      <input type="number" [(ngModel)]="painting.count" name="count" id="count" class="form-control">
+    </div>
+    <div class="form-group">
+      <div class="d-flex justify-content-start mt-2">
+        <label for="stock">Cím</label>
+      </div>
+      <input type="number" [(ngModel)]="painting.stock" name="stock" id="stock" class="form-control">
+    </div>
+    <div class="form-group">
+      <div class="d-flex justify-content-start mt-2">
+        <label for="price">Cím</label>
+      </div>
+      <input type="number" step="1000" [(ngModel)]="painting.price" name="price" id="price" class="form-control">
+    </div>
+  </form>
+</app-modal>

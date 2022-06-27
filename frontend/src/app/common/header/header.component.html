@@ -7,7 +7,7 @@
   <div class="navbar-nav">
     <div class="nav-item text-nowrap">
       <a class="nav-link px-3" [routerLink]="['/', 'login']">
-        <span *ngIf="(user$ | async)">Kijelentkezés</span>
+        <span *ngIf="(user$ | async) as user"> {{user.email}} ({{user.role}}) Kijelentkezés</span>
         <span *ngIf="!(user$ | async)">Bejelentkezés</span>
       </a>
     </div>

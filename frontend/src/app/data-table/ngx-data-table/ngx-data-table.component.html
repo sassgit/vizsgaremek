@@ -7,7 +7,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let item of list | slice:startSlice:endSlice">
+      <tr *ngFor="let item of list | slice:startSlice:endSlice" (click)="raiseRowClick(item)" >
         <td *ngFor="let column of columns">
           <ng-container *ngIf="!column.divButton">
             {{ interpret(column.interpreter, item[column.key])}}

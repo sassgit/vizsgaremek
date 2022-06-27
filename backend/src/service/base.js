@@ -2,8 +2,12 @@
 const populating = (query, populateObj) => {
   if (!populateObj || typeof populateObj === 'string')
     return query.populate(populateObj);
-  else 
+  else if (typeof populateObj === 'function')
+    return populateObj(query);
+  else if (Array.isArray(populateObj))
     return populateObj.reduce((q, e) => q.populate(e), query);
+  else
+    return query.populate();
 };
 
 module.exports = model => ({

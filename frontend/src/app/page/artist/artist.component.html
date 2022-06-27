@@ -37,15 +37,21 @@
 <app-modal *ngIf="editObj$ | async as artist" [(visible)]="editVisible" (onOkButtonClick)="editOkButton(artist)" >
   <form >
     <div class="form-group">
-      <label for="fullName" >Polgári név</label>
+      <div class="d-flex justify-content-start mt-2">
+        <label for="fullName" >Polgári név</label>
+      </div>
       <input type="text" [(ngModel)]="artist.fullName" name="fullName" id="fullName" class="form-control" >
     </div>
     <div class="form-group">
-      <label for="artistName" >Művésznév</label>
+      <div class="d-flex justify-content-start mt-2">
+        <label for="artistName" >Művésznév</label>
+      </div>
       <input type="text" [(ngModel)]="artist.artistName" name="artistName" id="artistName" class="form-control" >
     </div>
     <div class="form-group">
-      <label for="otherInfo" >Egyéb információk</label>
+      <div class="d-flex justify-content-start mt-2">
+        <label for="otherInfo" >Egyéb információk</label>
+      </div>
       <input type="text" [(ngModel)]="artist.otherInfo" name="otherInfo" id="otherInfo" class="form-control" >
     </div>
   </form>

@@ -26,6 +26,8 @@ export class NgxDataTableComponent< T extends {[x: string]: any}> implements OnI
 
   @Output() onButtonClick: EventEmitter<[string, T]> = new EventEmitter<[string, T]>();
 
+  @Output() onRowClick: EventEmitter<T> = new EventEmitter<T>();
+
   startSlice: number = 0;
 
   endSlice: number = 10;
@@ -78,6 +80,10 @@ export class NgxDataTableComponent< T extends {[x: string]: any}> implements OnI
 
   raiseButtonClick(name: string, entity: T): void {
     this.onButtonClick.emit([name, entity]);
+  }
+
+  raiseRowClick(entity: T): void {
+    this.onRowClick.emit(entity);
   }
 
 

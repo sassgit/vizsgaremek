@@ -16,7 +16,7 @@ export class ModalComponent implements OnInit {
   @Input() okButtonText: string = 'Ment';
   @Input() okButtonClass: string = 'btn btn-primary';
   @Input() cancelButtonText: string = 'Mégsem';
-  @Input() cancelButtonClass: string = 'btn btn-danger';
+  @Input() cancelButtonClass: string = 'btn btn-secondary';
 
   @Output() onOkButtonClick = new EventEmitter();
   @Output() onCancelButtonClick = new EventEmitter();
@@ -32,11 +32,10 @@ export class ModalComponent implements OnInit {
   }
 
   okButtonClick(): void {
-    this.visible = false;
     this.onOkButtonClick.emit();
   }
   cancelButtonClick(): void {
-    this.visible = false;
+    this.mvisible = false;
     this.onCancelButtonClick.emit();
   }
 
