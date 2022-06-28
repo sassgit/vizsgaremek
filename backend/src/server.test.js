@@ -52,6 +52,7 @@ describe('REST API inegration tests', () => {
       .post('/login')
       .send({email: 'root@test.hu', password: 'root'})
       .end((err, res) => {
+        expect(res.body.accessToken).toBeTruthy();
         accessToken = res.body.accessToken;
         done();
       });
@@ -151,6 +152,16 @@ describe('REST API inegration tests', () => {
         expect(users.length).toBe(dataSource.users.length);
         done();
       })
+  });
+
+  test('POST /login', done => {
+    supertest(app)
+      .post('/login')
+      .send({email: 'root@test.hu', password: 'asdf'})
+      .end((err, res) => {
+        expect(res.body.accessToken).toBeFalsy();
+        done();
+      });
   });
 
   afterAll( async () => {
