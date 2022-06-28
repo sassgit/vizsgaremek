@@ -1,8 +1,8 @@
 const fsp = require('fs').promises;
 const { join } = require('path');
-const artists = require('./data/artists.json'); //.slice(0, 5);
-const customers = require('./data/customers.json'); //.slice(0, 10);
-const paintings = require('./data/paintings.json'); //.slice(0, 30);
+const artists = require('./data/artists.json'); //.slice(0, 10);
+const customers = require('./data/customers.json'); //.slice(0, 20);
+const paintings = require('./data/paintings.json'); //.slice(0, 100);
 
 const data = {
   artists: [],

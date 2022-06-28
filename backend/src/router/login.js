@@ -3,8 +3,8 @@ const config = require('config');
 const User = require('../model/user');
 const jwt = require('jsonwebtoken');
 
-const secret = config.get('jwt').secret;
-const expiresIn = config.get('jwt').expiresIn;
+const secret = process.env.SECRET;
+const expiresIn = process.env.EXPIRES_IN;
 
 const router = express.Router();
 

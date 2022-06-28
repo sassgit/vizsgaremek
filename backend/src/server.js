@@ -4,7 +4,6 @@ const morgan = require('morgan');
 const cors = require('cors');
 const logger = require('./logger');
 
-const jwtConfig = config.get('jwt')
 const noAuth = process.argv[2] === '--noAuth';
 
 if (noAuth) {
@@ -21,7 +20,7 @@ const jwtAuth = noAuth ?
     req.user = { email: '@root', password: '', role: 'root' };
     return next();
   } :
-  require('./auth/jwt')(jwtConfig.secret);
+  require('./auth/jwt')(process.env.SECRET);
 
 const app = express();
 app.use(morgan('combined', { stream: logger.stream }));
