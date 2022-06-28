@@ -1,4 +1,5 @@
 const fsp = require('fs').promises;
+const { argv } = require('process');
 const mongoose = require('mongoose');
 const config = require('config');
 
@@ -10,13 +11,15 @@ const Photo = require('../model/photo');
 const User = require('../model/user');
 
 const database = config.get('database');
-const data = require('./generated.json');
+const dataFile = argv[2] || './generated.json';
+
+const data = require(dataFile);
 
 const { host, user, pass } = config.get('database');
 
 mongoose.connect(host, { user, pass })
   .then( async conn => {
-    console.log('Db connection is successful, start upload!');
+    //console.log('Db connection is successful, start upload!');
     const artists = await Promise.all(data.artists.map(artist => (new Artist(artist)).save()));
     const customers = await Promise.all(data.customers.map(customer => (new Customer(customer)).save()));
     const paintings = await Promise.all(data.paintings.map(painting => {

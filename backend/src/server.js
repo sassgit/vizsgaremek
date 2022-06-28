@@ -15,6 +15,7 @@ if (noAuth) {
   console.log('\x1b[43m\x1b[31mWARNING!!!\x1b[0m')
 }
 
+
 const jwtAuth = noAuth ?
   (req, res, next) => {
     req.user = { email: '@root', password: '', role: 'root' };
