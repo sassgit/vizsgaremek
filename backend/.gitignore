@@ -1,6 +1,9 @@
 #config
 config/*
 
+#tmp
+tmp/*
+
 # Logs
 logs
 *.log
