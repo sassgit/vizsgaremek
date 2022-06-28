@@ -1,5 +1,5 @@
 <div class="modal" [ngClass]="{'modal-hidden': !visible, 'modal-visible': visible}" [style.zIndex]="zIndex">
-  <div class="modal-inner">
+  <div class="modal-inner" [style.width]="innerWidth" >
     <div class="content">
       <ng-content></ng-content>
     </div>

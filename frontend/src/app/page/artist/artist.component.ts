@@ -15,7 +15,10 @@ export class ArtistComponent implements OnInit {
 
   editVisible: boolean = false;
 
-  editObj$: Observable<Artist> = of(new Artist());
+  editObj: Artist = new Artist();
+
+  deleteConfirmVisible: boolean = false;
+  deleteObj: Artist = new Artist();
 
   constructor(
     private artistService: ArtistService,
@@ -27,20 +30,35 @@ export class ArtistComponent implements OnInit {
 
   tableButtonClick($event:[string, Artist]){
     if ($event[0] === 'edit') {
-      this.editObj$ = this.artistService.getOne($event[1]._id as string);
       this.editVisible = true;
+      this.artistService.getOne($event[1]._id as string).subscribe({
+        next: entity => this.editObj = entity
+      });
     } else if ($event[0] === 'delete') {
-      this.artistService.delete($event[1]._id as string)
+      this.deleteObj = $event[1];
+      this.deleteConfirmVisible = true;
     }
   }
 
   editOkButton(entity: Artist): void {
     this.editVisible = false;
-    this.artistService.update(entity).subscribe({
-      next: () => {
+    (entity._id ? this.artistService.update(entity) : this.artistService.create(entity))
+      .subscribe({ next: () => this.list$ = this.artistService.getAll()});
+  }
+
+
+  deleteConfirmed($event: Artist) {
+    this.deleteConfirmVisible = false;
+    this.artistService.delete($event._id as string).subscribe({
+      next: (response) => {
         this.list$ = this.artistService.getAll();
       }
     })
+  }
+
+  createClick() : void {
+    this.editObj = new Artist();
+    this.editVisible = true;
   }
 
 }

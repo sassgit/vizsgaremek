@@ -15,31 +15,50 @@ export class CustomerComponent implements OnInit {
 
   editVisible: boolean = false;
 
-  editObj$: Observable<Customer> = of(new Customer());
+  editObj: Customer = new Customer();
+
+  deleteConfirmVisible: boolean = false;
+  deleteObj: Customer = new Customer();
 
   constructor(
     private customerService: CustomerService,
     private router: Router,
   ) { }
+
   ngOnInit(): void {
   }
 
   tableButtonClick($event:[string, Customer]){
     if ($event[0] === 'edit') {
-      this.editObj$ = this.customerService.getOne($event[1]._id as string);
       this.editVisible = true;
+      this.customerService.getOne($event[1]._id as string).subscribe({
+        next: entity => this.editObj = entity
+      });
     } else if ($event[0] === 'delete') {
-      this.customerService.delete($event[1]._id as string)
+      this.deleteObj = $event[1];
+      this.deleteConfirmVisible = true;
     }
   }
 
   editOkButton(entity: Customer): void {
     this.editVisible = false;
-    this.customerService.update(entity).subscribe({
-      next: () => {
+    (entity._id ? this.customerService.update(entity) : this.customerService.create(entity)).subscribe({
+      next: () => this.list$ = this.customerService.getAll() });
+  }
+
+  deleteConfirmed($event: Customer) {
+    this.deleteConfirmVisible = false;
+    this.customerService.delete($event._id as string).subscribe({
+      next: (response) => {
         this.list$ = this.customerService.getAll();
       }
     })
   }
+
+  createClick() : void {
+    this.editObj = new Customer();
+    this.editVisible = true;
+  }
+
 
 }

@@ -18,7 +18,7 @@ module.exports = {
         stockPaintings: paintings.reduce((prev, p) => safeSum(prev, p.stock), 0),
         allPaintingsPrice: paintings.reduce((prev, p) => safeSum(prev, p.count * p.price), 0),
         stockPaintingsPrice: paintings.reduce((prev, p) => safeSum(prev, p.stock * p.price), 0),
-        soldPaintins: orders.reduce((prev, o) => safeSum(prev, o.paintings.length), 0),
+        soldPaintings: orders.reduce((prev, o) => safeSum(prev, o.paintings.length), 0),
         soldPrice: orders.reduce((prev, o) => safeSum(prev, o.price), 0),
       });
     } catch (err) {

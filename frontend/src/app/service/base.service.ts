@@ -14,13 +14,13 @@ export class BaseService<T extends BaseModel> {
   apiUrl = `${environment.apiUrl}${this.entityName}`;
 
   constructor(
-    private http: HttpClient,
+    protected http: HttpClient,
     @Inject(String) private entityName: string,
   ) { }
 
   create(entity: T): Observable<T> {
     this.prepareToSend(entity);
-    return this.http.post<T>(this.apiUrl, entity);
+    return this.http.put<T>(this.apiUrl, entity);
   }
 
   getAll(): Observable<T[]> {
@@ -28,7 +28,6 @@ export class BaseService<T extends BaseModel> {
   }
 
   getOne(id: string): Observable<T> {
-    console.log(id, `${this.apiUrl}/${id}`);
     return this.http.get<T>(`${this.apiUrl}/${id}`);
   }
 

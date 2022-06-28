@@ -1,3 +1,4 @@
+import { map } from 'rxjs';
 import { SummaryService } from './../../service/summary.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -8,13 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  summary$ = this.summaryService.get();
+  summary$ = this.summaryService.get().pipe(map(e => [e]));
 
-  constructor(
+    constructor(
     private summaryService: SummaryService,
   ) { }
 
   ngOnInit(): void {
   }
 
-}
+  }

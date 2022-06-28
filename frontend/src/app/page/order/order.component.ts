@@ -1,3 +1,5 @@
+import { PaintingService } from './../../service/painting.service';
+import { CustomerService } from './../../service/customer.service';
 import { Painting } from './../../model/painting';
 import { Customer } from './../../model/customer';
 import { Order } from './../../model/order';
@@ -20,12 +22,26 @@ export class OrderComponent implements OnInit {
   public customerInterpreterMode = 'customer.fullName';
   public paintingInterpreterMode = 'paintings.length';
 
+  public artistInterpreterMode = 'artist.fullName';
+  public photoInterpreterMode = 'photos.length';
+
+
   editVisible: boolean = false;
 
-  editObj$: Observable<Order> = of(new Order());
+  customerSelectVisible: boolean = false;
+  editObj: Order = new Order();
+  customerList$: Observable<Customer[]> = of([]);
+
+  paintingSelectVisible: boolean = false;
+  paintingList$: Observable<Painting[]> = of([]);
+
+  deleteConfirmVisible: boolean = false;
+  deleteObj: Order = new Order();
 
   constructor(
     private orderService: OrderService,
+    private customerService: CustomerService,
+    private paintingService: PaintingService,
     private router: Router,
   ) { }
   ngOnInit(): void {
@@ -37,6 +53,10 @@ export class OrderComponent implements OnInit {
       return data?.fullName;
     } else if (mode === this.paintingInterpreterMode) {
       return data.length;
+    } else if (mode === this.artistInterpreterMode) {
+      return data.fullname;
+    } else if (mode === this.photoInterpreterMode) {
+      return data.length;
     } else {
       return '';
     }
@@ -44,20 +64,20 @@ export class OrderComponent implements OnInit {
 
   tableButtonClick($event:[string, Order]){
     if ($event[0] === 'edit') {
-      this.editObj$ = this.orderService.getOne($event[1]._id as string);
       this.editVisible = true;
+      this.orderService.getOne($event[1]._id as string).subscribe({
+        next: entity => this.editObj = entity
+      })
     } else if ($event[0] === 'delete') {
-      this.orderService.delete($event[1]._id as string)
+      this.deleteObj = $event[1];
+      this.deleteConfirmVisible = true;
     }
   }
 
   editOkButton(entity: Order): void {
     this.editVisible = false;
-    this.orderService.update(entity).subscribe({
-      next: (e) => {
-        this.list$ = this.orderService.getAll();
-      }
-    })
+    (entity._id ? this.orderService.update(entity) : this.orderService.create(entity))
+      .subscribe({ next: () => this.list$ = this.orderService.getAll()});
   }
 
   getCustomerName(entity: Order): string {
@@ -65,15 +85,44 @@ export class OrderComponent implements OnInit {
   }
 
   changeCustomer(entity: Order): void {
-
+    this.customerSelectVisible = true;
+    this.editObj = entity;
+    this.customerList$ = this.customerService.getAll();
   }
 
-  selectPainting(entity: Order): void {
+  customerSelect(entity: Customer): void {
+    this.editObj.customer = entity;
+    this.customerSelectVisible = false;
+  }
 
+  paintingSelect(entity: Painting): void {
+    (this.editObj.paintings as any).push(entity)
+    this.paintingSelectVisible = false;
+  }
+
+
+  selectPainting(entity: Order): void {
+    this.editObj = entity;
+    this.paintingSelectVisible = true;
+    this.paintingList$ = this.paintingService.getAll();
   }
 
   deletePainting(entity: Order, painting: Painting| string): void {
     entity.paintings = entity.paintings.filter(e => e != painting);
+  }
+
+  deleteConfirmed($event: Order): void {
+    this.deleteConfirmVisible = false;
+    this.orderService.delete($event._id as string).subscribe({
+      next: (response) => {
+        this.list$ = this.orderService.getAll();
+      }
+    })
+  }
+
+  createOrderClick(): void {
+    this.editObj = new Order();
+    this.editVisible = true;
   }
 
 }

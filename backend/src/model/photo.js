@@ -3,17 +3,10 @@ const mongoose = require('mongoose');
 const PhotoSchema = mongoose.Schema({
   storedFileName: {
     type: String,
-    required: true,
     unique: true
   },
-  alt: {
-    type: String,
-    required: true
-  },
-  fileSize: {
-    type: Number,
-    required: true
-  }
+  alt: String,
+  fileSize: Number,
 })
 
 module.exports = mongoose.model('Photo', PhotoSchema);

@@ -1,3 +1,4 @@
+import { PhotoService } from './../../service/photo.service';
 import { ArtistService } from './../../service/artist.service';
 import { Photo } from './../../model/photo';
 import { of, Observable } from 'rxjs';
@@ -24,15 +25,21 @@ export class PaintingComponent implements OnInit {
 
   editVisible: boolean = false;
 
-  editObj$: Observable<Painting> = of(new Painting());
+  editObj: Painting = new Painting();
 
   artistSelectVisible: boolean = false;
-  editObj: Painting = new Painting();
   artistList$: Observable<Artist[]> = of([]);
+
+  photoSelectVisible: boolean = false;
+  photoList$: Observable<Photo[]> = of([]);
+
+  deleteConfirmVisible: boolean = false;
+  deleteObj: Painting = new Painting();
 
   constructor(
     private paintingService: PaintingService,
     private artistService: ArtistService,
+    private photoService: PhotoService,
     private router: Router,
   ) { }
 
@@ -52,10 +59,13 @@ export class PaintingComponent implements OnInit {
 
   tableButtonClick($event:[string, Painting]){
     if ($event[0] === 'edit') {
-      this.editObj$ = this.paintingService.getOne($event[1]._id as string);
       this.editVisible = true;
+      this.paintingService.getOne($event[1]._id as string).subscribe(
+        { next: entity => this.editObj = entity }
+      );
     } else if ($event[0] === 'delete') {
-      this.paintingService.delete($event[1]._id as string)
+      this.deleteObj = $event[1];
+      this.deleteConfirmVisible = true;
     }
   }
 
@@ -72,11 +82,7 @@ export class PaintingComponent implements OnInit {
   }
 
   getArtistName(entity: Painting): string {
-    return (entity.artist as Artist)?.fullName;
-  }
-
-  selectPhoto(entity: Painting): void {
-
+    return `${(entity.artist as Artist)?.fullName} (${(entity.artist as Artist)?.artistName})`;
   }
 
   deletePhoto(entity: Painting, photo: Photo| string): void {
@@ -85,11 +91,35 @@ export class PaintingComponent implements OnInit {
 
   editOkButton(entity: Painting): void {
     this.editVisible = false;
-    this.paintingService.update(entity).subscribe({
-      next: (e) => {
+    ( entity._id ? this.paintingService.update(entity) : this.paintingService.create(entity) )
+      .subscribe({ next: (e) => this.list$ = this.paintingService.getAll() });
+  }
+
+  photoSelect(entity: Photo): void {
+    (this.editObj.photos as any).push(entity)
+    this.photoSelectVisible = false;
+  }
+
+
+  selectPhoto(entity: Painting): void {
+    this.editObj = entity;
+    this.photoSelectVisible = true;
+    this.photoList$ = this.photoService.getAll();
+  }
+
+
+  deleteConfirmed($event: Painting) {
+    this.deleteConfirmVisible = false;
+    this.paintingService.delete($event._id as string).subscribe({
+      next: (response) => {
         this.list$ = this.paintingService.getAll();
       }
     })
+  }
+
+  createClick() : void {
+    this.editObj = new Painting();
+    this.editVisible = true;
   }
 
 }

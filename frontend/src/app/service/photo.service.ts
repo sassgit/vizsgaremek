@@ -1,3 +1,4 @@
+import { Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { BaseService } from './base.service';
 import { Injectable } from '@angular/core';
@@ -13,4 +14,9 @@ export class PhotoService extends BaseService<Photo> {
   ) {
     super(http, 'photo');
   }
+
+  post(formData: FormData): Observable<Photo> {
+    return this.http.post<Photo>(this.apiUrl, formData);
+  }
+
 }

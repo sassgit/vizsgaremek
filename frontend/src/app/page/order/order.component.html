@@ -1,4 +1,5 @@
 <h2>Rendelések</h2>
+<button class="btn btn-primary" (click)="createOrderClick()" >Új rendelés felvitele az adatbázisba</button>
 <ngx-data-table *ngIf="list$ |async as list" [list]="list" [columns]="[
     {
       title: 'Vevő',
@@ -48,7 +49,7 @@
     }
   ]" [interpreter]="interpreterBound" (onButtonClick)="tableButtonClick($event)"></ngx-data-table>
 
-<app-modal *ngIf="editObj$ | async as order" [(visible)]="editVisible" (onOkButtonClick)="editOkButton(order)">
+<app-modal *ngIf="editObj as order" [(visible)]="editVisible" (onOkButtonClick)="editOkButton(order)">
   <form>
     <div class="form-group">
       <div class="d-flex justify-content-start mt-2">
@@ -118,5 +119,108 @@
       </div>
       <input type="number" step="1000" [(ngModel)]="order.price" name="price" id="price" class="form-control">
     </div>
+
+    <app-modal
+      [(visible)]="customerSelectVisible"
+      okButtonClass="hidden"
+      [zIndex] = "11000"
+    >
+      <ngx-data-table
+        *ngIf="customerList$ |async as list"
+        [list]="list"
+        [columns]="[
+          {
+            title: 'Név',
+            key: 'fullName'
+          },
+          {
+            title: 'Irányítószám',
+            key: 'zip'
+          },
+          {
+            title: 'Város',
+            key: 'city'
+          },
+          {
+            title: 'Utca, hsz.',
+            key: 'streetAddress'
+          },
+          {
+            title: 'Ország',
+            key: 'country'
+          },
+          {
+            title: 'e-mail',
+            key: 'email'
+          },
+        ]"
+        (onRowClick)="customerSelect($event)"
+      ></ngx-data-table>
+    </app-modal>
+
+    <app-modal
+      [(visible)]="paintingSelectVisible"
+      okButtonClass="hidden"
+      innerWidth="75%"
+      [zIndex] = "11000"
+    >
+      <ngx-data-table *ngIf="paintingList$ |async as list" [list]="list" [columns]="[
+    {
+      title: 'Művész',
+      key: 'artist',
+      interpreter: artistInterpreterMode
+    },
+    {
+      title: 'Cím',
+      key: 'title'
+    },
+    {
+      title: 'Típus',
+      key: 'type'
+    },
+    {
+      title: 'Egyéb',
+      key: 'otherInfo'
+    },
+    {
+      title: 'fotók',
+      key: 'photos',
+      interpreter: photoInterpreterMode
+    },
+    {
+      title: 'Készült (db)',
+      key: 'count'
+    },
+    {
+      title: 'Raktáron (db)',
+      key: 'count'
+    },
+    {
+      title: 'Ár',
+      key: 'price'
+    },
+    ]"
+    [interpreter]="interpreterBound"
+    (onRowClick)="paintingSelect($event)"
+    ></ngx-data-table>
+  </app-modal>
+
   </form>
+</app-modal>
+
+
+<app-modal
+  [(visible)]="deleteConfirmVisible"
+  okButtonClass="btn btn-danger"
+  (onOkButtonClick)="deleteConfirmed(deleteObj)"
+  okButtonText="Törlés!"
+  [zIndex] = "12000"
+  innerWidth="50%"
+>
+<h2>Törlés megerősítése</h2>
+<hr>
+<h3>
+  Valóban törölni kívánja ezt a megrendelést?
+</h3>
+<small>(Vevő: {{$any(deleteObj.customer).fullName}}, Végösszeg: {{deleteObj.price}} )</small>
 </app-modal>

@@ -15,7 +15,10 @@ export class UserComponent implements OnInit {
 
   editVisible: boolean = false;
 
-  editObj$: Observable<User> = of(new User());
+  editObj: User = new User();
+
+  deleteConfirmVisible: boolean = false;
+  deleteObj: User = new User();
 
   constructor(
     private userService: UserService,
@@ -24,20 +27,34 @@ export class UserComponent implements OnInit {
 
   tableButtonClick($event:[string, User]){
     if ($event[0] === 'edit') {
-      this.editObj$ = this.userService.getOne($event[1]._id as string);
       this.editVisible = true;
+      this.userService.getOne($event[1]._id as string).subscribe({
+        next: entity => this.editObj = entity
+      })
     } else if ($event[0] === 'delete') {
-      this.userService.delete($event[1]._id as string)
+      this.deleteObj = $event[1];
+      this.deleteConfirmVisible = true;
     }
   }
 
   editOkButton(entity: User): void {
     this.editVisible = false;
-    this.userService.update(entity).subscribe({
-      next: () => {
+    (entity._id ? this.userService.update(entity) : this.userService.create(entity))
+      .subscribe({ next: () => this.list$ = this.userService.getAll() });
+  }
+
+  deleteConfirmed($event: User) {
+    this.deleteConfirmVisible = false;
+    this.userService.delete($event._id as string).subscribe({
+      next: (response) => {
         this.list$ = this.userService.getAll();
       }
     })
+  }
+
+  createClick() : void {
+    this.editObj = new User();
+    this.editVisible = true;
   }
 
   ngOnInit(): void {

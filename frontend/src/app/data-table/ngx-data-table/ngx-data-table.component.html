@@ -28,15 +28,15 @@
 </div>
 <nav *ngIf="pageCount > 1" aria-label="Page navigation example">
   <ul class="pagination mt-4">
-    <li class="page-item"><button [disabled]="page < 2" class="page-link" (click)="jumpToPage(1)">First</button></li>
+    <li class="page-item"><button [disabled]="page < 2" class="page-link" (click)="jumpToPage(1)">|&lt;&lt;</button></li>
     <li class="page-item"><button [disabled]="page < 2" class="page-link"
-        (click)="jumpToPage(page - 1)">Previous</button></li>
+        (click)="jumpToPage(page - 1)">&lt;</button></li>
     <li *ngFor="let pageObj of pageList" class="page-item"><button class="page-link"
         [ngClass]="{'fw-bold': page === pageObj.page}" (click)="jumpToPage(pageObj.page)">{{ pageObj.text }}</button>
     </li>
     <li class="page-item"><button [disabled]="page >= pageCount" class="page-link"
-        (click)="jumpToPage(page + 1)">Next</button></li>
+        (click)="jumpToPage(page + 1)">&gt;</button></li>
     <li class="page-item"><button [disabled]="page >= pageCount" class="page-link"
-        (click)="jumpToPage(pageCount)">Last</button></li>
+        (click)="jumpToPage(pageCount)">&gt;&gt;|</button></li>
   </ul>
 </nav>

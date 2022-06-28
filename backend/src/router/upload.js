@@ -1,13 +1,9 @@
 const router = require('express').Router();
 const fs = require('fs');
-const {
-  join
-} = require('path');
+const { join } = require('path');
 const fileUpload = require('express-fileupload');
 const service = require('../service/base')(require('../model/photo'));
-const {
-  editEnable
-} = require('../auth/autorization');
+const { editEnable } = require('../auth/autorization');
 
 router.use(fileUpload({
   useTempFiles: true
@@ -22,7 +18,7 @@ router.post('/images', editEnable, async (req, res) => {
     let nameArray = storedFileName.split('.');
     const alt = nameArray.slice(0, nameArray.length - 1).join('.');
     let idx = 0;
-    while (service.Search({
+    while (service.search({
         storedFileName
       })) {
       nameArray[storedFileName.length - 1] = `${storedFileName}_${++idx}`;

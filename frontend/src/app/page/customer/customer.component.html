@@ -1,4 +1,5 @@
 <h2>Vevők</h2>
+<button class="btn btn-primary" (click)="createClick()" >Új vevő felvitele az adatbázisba</button>
 <ngx-data-table
   *ngIf="list$ |async as list"
   [list]="list"
@@ -47,7 +48,7 @@
   (onButtonClick)="tableButtonClick($event)"
 ></ngx-data-table>
 
-<app-modal *ngIf="editObj$ | async as customer" [(visible)]="editVisible" (onOkButtonClick)="editOkButton(customer)" >
+<app-modal *ngIf="editObj as customer" [(visible)]="editVisible" (onOkButtonClick)="editOkButton(customer)" >
   <form >
     <div class="form-group">
       <div class="d-flex justify-content-start mt-2">
@@ -86,4 +87,21 @@
       <input type="text" [(ngModel)]="customer.email" name="email" id="email" class="form-control" >
     </div>
   </form>
+</app-modal>
+
+
+<app-modal
+  [(visible)]="deleteConfirmVisible"
+  okButtonClass="btn btn-danger"
+  (onOkButtonClick)="deleteConfirmed(deleteObj)"
+  okButtonText="Törlés!"
+  [zIndex] = "12000"
+  innerWidth="50%"
+>
+<h2>Törlés megerősítése</h2>
+<hr>
+<h3>
+  Valóban törölni kívánja a vevőt az adatbázisból?
+</h3>
+<small>(Név: {{deleteObj.fullName}} )</small>
 </app-modal>
