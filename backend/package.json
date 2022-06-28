@@ -8,7 +8,7 @@
     "noauth": "node src/index.js --noAuth",
     "generatemockdata": "node src/seed/generatemockdata.js",
     "uploadmockdata": "node src/seed/uploadmockdata.js",
-    "deploy": "cd ../frontend && ng build && cd ../backend && docker-compose up",
+    "deploy": "npm i && cd ../frontend && npm i && ng build && cd ../backend && docker-compose up",
     "test": "jest"
   },
   "keywords": [],
