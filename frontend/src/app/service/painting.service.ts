@@ -21,7 +21,6 @@ export class PaintingService extends BaseService<Painting> {
     super.prepareToSend(entity);
     if (entity.photos)
       entity.photos.map(e => typeof e === 'string' ? e : e?._id);
-    entity.artist = typeof entity.artist === 'string' ? entity.artist : entity?._id as string;
-
+    entity.artist = typeof entity.artist === 'string' ? entity.artist : entity?.artist?._id as string;
   }
 }

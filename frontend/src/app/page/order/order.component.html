@@ -52,7 +52,7 @@
   <form>
     <div class="form-group">
       <div class="d-flex justify-content-start mt-2">
-        <label >Vevő</label>
+        <label>Vevő</label>
       </div>
       <div class="d-flex justify-content-start">
         <input disabled type="text" [value]="getCustomerName(order)" name="customer" id="customer" class="form-control">
@@ -66,27 +66,27 @@
       <div class="table-responsive">
         <table class="table table-striped table-sm">
           <thead>
-          <tr>
-            <th>Festő</th>
-           <th>Cím</th>
-           <th>típus</th>
-           <th>
-              <button class="btn btn-primary w-80" (click)="selectPainting(order)">Új kép</button>
-          </th>
+            <tr>
+              <th>Festő</th>
+              <th>Cím</th>
+              <th>típus</th>
+              <th>
+                <button class="btn btn-primary w-80" (click)="selectPainting(order)">Új kép</button>
+              </th>
+            </tr>
+          </thead>
+          <tr *ngFor="let item of order.paintings">
+            <td>{{$any(item)?.artist?.artistName}}</td>
+            <td>{{$any(item)?.title}}</td>
+            <td>{{$any(item)?.type}}</td>
+            <td>
+              <div>
+                <button class="btn btn-danger w-80" (click)="deletePainting(order, item)">Törlés</button>
+              </div>
+            </td>
           </tr>
-        </thead>
-        <tr *ngFor="let item of order.paintings">
-          <td>{{$any(item)?.artist?.artistName}}</td>
-          <td>{{$any(item)?.title}}</td>
-          <td>{{$any(item)?.type}}</td>
-          <td>
-            <div>
-              <button class="btn btn-danger w-80" (click)="deletePainting(order, item)">Törlés</button>
-            </div>
-          </td>
-        </tr>
-      </table>
-    </div>
+        </table>
+      </div>
     </div>
     <div class="form-group">
       <div class="d-flex justify-content-start mt-2">

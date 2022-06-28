@@ -52,7 +52,12 @@
     }
   ]" [interpreter]="interpreterBound" (onButtonClick)="tableButtonClick($event)"></ngx-data-table>
 
-<app-modal *ngIf="editObj$ | async as painting" [(visible)]="editVisible" (onOkButtonClick)="editOkButton(painting)">
+<app-modal
+  *ngIf="editObj$ | async as painting"
+  [(visible)]="editVisible"
+  (onOkButtonClick)="editOkButton(painting)"
+  [zIndex] = "10000"
+>
   <form>
     <div class="form-group">
       <div class="d-flex justify-content-start mt-2">
@@ -71,13 +76,13 @@
     </div>
     <div class="form-group">
       <div class="d-flex justify-content-start mt-2">
-        <label for="type">Cím</label>
+        <label for="type">típus</label>
       </div>
       <input type="text" [(ngModel)]="painting.type" name="type" id="type" class="form-control">
     </div>
     <div class="form-group">
       <div class="d-flex justify-content-start mt-2">
-        <label for="otherInfo">Cím</label>
+        <label for="otherInfo">Egyéb információk</label>
       </div>
       <input type="text" [(ngModel)]="painting.otherInfo" name="otherInfo" id="otherInfo" class="form-control">
     </div>
@@ -112,21 +117,49 @@
     </div>
     <div class="form-group">
       <div class="d-flex justify-content-start mt-2">
-        <label for="count">Cím</label>
+        <label for="count">Készült db</label>
       </div>
       <input type="number" [(ngModel)]="painting.count" name="count" id="count" class="form-control">
     </div>
     <div class="form-group">
       <div class="d-flex justify-content-start mt-2">
-        <label for="stock">Cím</label>
+        <label for="stock">Raktáron db</label>
       </div>
       <input type="number" [(ngModel)]="painting.stock" name="stock" id="stock" class="form-control">
     </div>
     <div class="form-group">
       <div class="d-flex justify-content-start mt-2">
-        <label for="price">Cím</label>
+        <label for="price">Ár</label>
       </div>
       <input type="number" step="1000" [(ngModel)]="painting.price" name="price" id="price" class="form-control">
     </div>
   </form>
+</app-modal>
+
+<app-modal
+  [(visible)]="artistSelectVisible"
+  okButtonClass="hidden"
+  [zIndex] = "11000"
+>
+
+  <ngx-data-table
+    *ngIf="artistList$ | async as list"
+    [list]="list"
+    [columns]="[
+      {
+        title: 'Név',
+        key: 'fullName'
+      },
+      {
+        title: 'Művésznév',
+        key: 'artistName'
+      },
+      {
+        title: 'Egyéb információk',
+        key: 'otherInfo'
+      },
+    ]"
+    (onRowClick)="artistSelect($event)"
+  ></ngx-data-table>
+
 </app-modal>

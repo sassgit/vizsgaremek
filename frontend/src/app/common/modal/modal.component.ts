@@ -18,6 +18,8 @@ export class ModalComponent implements OnInit {
   @Input() cancelButtonText: string = 'Mégsem';
   @Input() cancelButtonClass: string = 'btn btn-secondary';
 
+  @Input() zIndex: number = 10000;
+
   @Output() onOkButtonClick = new EventEmitter();
   @Output() onCancelButtonClick = new EventEmitter();
 
@@ -35,7 +37,7 @@ export class ModalComponent implements OnInit {
     this.onOkButtonClick.emit();
   }
   cancelButtonClick(): void {
-    this.mvisible = false;
+    this.visible = false;
     this.onCancelButtonClick.emit();
   }
 

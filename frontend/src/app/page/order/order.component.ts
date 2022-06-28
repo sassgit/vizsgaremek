@@ -55,7 +55,6 @@ export class OrderComponent implements OnInit {
     this.editVisible = false;
     this.orderService.update(entity).subscribe({
       next: (e) => {
-        console.log(e);
         this.list$ = this.orderService.getAll();
       }
     })

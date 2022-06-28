@@ -33,6 +33,8 @@ app.use('/images', require('./router/images')('www/images'));
 
 app.use('/login', require('./router/login'));
 
+app.use('/summary', jwtAuth, require('./router/summary'));
+
 const entityPaths = ['artist', 'customer', 'order', 'painting', 'photo', 'user'];
 const routers = entityPaths;
 

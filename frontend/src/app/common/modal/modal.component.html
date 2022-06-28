@@ -1,4 +1,4 @@
-<div class="modal" [ngClass]="{'modal-hidden': !visible, 'modal-visible': visible}">
+<div class="modal" [ngClass]="{'modal-hidden': !visible, 'modal-visible': visible}" [style.zIndex]="zIndex">
   <div class="modal-inner">
     <div class="content">
       <ng-content></ng-content>

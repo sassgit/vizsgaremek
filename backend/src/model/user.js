@@ -11,4 +11,23 @@ const UserSchema = mongoose.Schema({
 
 UserSchema.plugin(require('mongoose-bcrypt'));
 
-module.exports = mongoose.model('User', UserSchema);
+const model = mongoose.model('User', UserSchema);
+
+model.populateOne = async (query) => {
+  const user = await query.populate();
+  delete user.password
+  delete user._doc.password;
+  return user;
+}
+
+model.populateAll = async (query) => {
+  const users = await query.populate();
+  return users.map( user => {
+    delete user.password
+    delete user._doc.password;
+    return user;
+  });
+}
+
+
+module.exports = model;

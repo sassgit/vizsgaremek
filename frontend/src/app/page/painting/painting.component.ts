@@ -1,3 +1,4 @@
+import { ArtistService } from './../../service/artist.service';
 import { Photo } from './../../model/photo';
 import { of, Observable } from 'rxjs';
 import { Artist } from './../../model/artist';
@@ -15,6 +16,7 @@ export class PaintingComponent implements OnInit {
 
   list$ = this.paintingService.getAll();
 
+
   public interpreterBound!: Function;
 
   public artistInterpreterMode = 'artist.fullName';
@@ -24,8 +26,13 @@ export class PaintingComponent implements OnInit {
 
   editObj$: Observable<Painting> = of(new Painting());
 
+  artistSelectVisible: boolean = false;
+  editObj: Painting = new Painting();
+  artistList$: Observable<Artist[]> = of([]);
+
   constructor(
     private paintingService: PaintingService,
+    private artistService: ArtistService,
     private router: Router,
   ) { }
 
@@ -52,8 +59,16 @@ export class PaintingComponent implements OnInit {
     }
   }
 
-  changeArtist(entity: Painting): void {
 
+  changeArtist(entity: Painting): void {
+    this.artistSelectVisible = true;
+    this.editObj = entity;
+    this.artistList$ = this.artistService.getAll();
+  }
+
+  artistSelect(entity: Artist): void {
+    this.editObj.artist = entity;
+    this.artistSelectVisible = false;
   }
 
   getArtistName(entity: Painting): string {
@@ -72,7 +87,6 @@ export class PaintingComponent implements OnInit {
     this.editVisible = false;
     this.paintingService.update(entity).subscribe({
       next: (e) => {
-        console.log(e);
         this.list$ = this.paintingService.getAll();
       }
     })

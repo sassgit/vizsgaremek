@@ -1,3 +1,4 @@
+import { SummaryService } from './../../service/summary.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,7 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  summary$ = this.summaryService.get();
+
+  constructor(
+    private summaryService: SummaryService,
+  ) { }
 
   ngOnInit(): void {
   }

@@ -34,7 +34,7 @@ export class CustomerComponent implements OnInit {
   }
 
   editOkButton(entity: Customer): void {
-    console.log(entity);
+    this.editVisible = false;
     this.customerService.update(entity).subscribe({
       next: () => {
         this.list$ = this.customerService.getAll();

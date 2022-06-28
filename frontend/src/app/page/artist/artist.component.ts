@@ -35,7 +35,7 @@ export class ArtistComponent implements OnInit {
   }
 
   editOkButton(entity: Artist): void {
-    console.log(entity);
+    this.editVisible = false;
     this.artistService.update(entity).subscribe({
       next: () => {
         this.list$ = this.artistService.getAll();
