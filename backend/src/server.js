@@ -3,6 +3,10 @@ const config = require('config');
 const morgan = require('morgan');
 const cors = require('cors');
 const logger = require('./logger');
+const swaggerUi = require('swagger-ui-express');
+const YAML = require('yamljs');
+
+const swaggerDocument = YAML.load('./src/docs/swagger.yaml');
 
 const noAuth = process.argv[2] === '--noAuth';
 
@@ -34,6 +38,8 @@ app.use('/images', require('./router/images')('www/images'));
 app.use('/login', require('./router/login'));
 
 app.use('/summary', jwtAuth, require('./router/summary'));
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 const entityPaths = ['artist', 'customer', 'order', 'painting', 'photo', 'user'];
 const routers = entityPaths;
