@@ -50,11 +50,15 @@ EXPIRES_IN="1h"
 
 A `vizsgaremek/frontend/src/environments/` mappában be lehet állítani az API végpont elérési útvonalát: 
 
-  - `environment.ts` állományban: `apiUrl: "http://127.0.0.1:3000/"`  
-  - `environment.prod.ts` állományban: `apiUrl: "http://127.0.0.1:3000/"` 
+  - `environment.ts` állományban: `apiUrl: "http://localhost:3000/"`
+  - `environment.prod.ts` állományban: `apiUrl: "http://localhost:3000/"`
 
 
 A `docker` beállításokat a `docker-compose.yml` fájlban lehet módosítani.
+
+## Swagger dokumentáció:
+
+  - http://localhost:3000/api-docs
 
 
 
