@@ -164,6 +164,13 @@ describe('REST API inegration tests', () => {
       });
   });
 
+  test('GET /api-docs', done => {
+    supertest(app)
+      .get('/api-docs/')
+      .expect(200)
+      .then(response => done());
+  });
+
   afterAll( async () => {
     await mongoose.connection.dropDatabase();
     await mongoose.connection.close();
